@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+
+    <head>
+        <meta charset="utf-8">
+        <title>Swipe – The Simplest Chat Platform</title>
+        <meta name="description" content="#">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Favicon -->
+        <link href="{% static 'img/favicon.png' %}" type="image/png" rel="icon">
+
+        <script src="{% static 'js/vendor/jquery-3.1.1.min.js' %}"></script>
+
+        <script src="{% static 'js/vendor/chosen.jquery.min.js' %}"></script>
+
+        <!-- Bootstrap core CSS -->
+        <link href="{% static 'css/lib/bootstrap.min.css' %}" type="text/css" rel="stylesheet">
+        <!-- Swipe core CSS -->
+        <link href="{% static 'css/swipe.min.css' %}" type="text/css" rel="stylesheet">
+
+        {% block headscript %}
+
+        {% endblock headscript %}
+
+
+    </head>
+
+    <body>
+
+        {% block content %}
+        {% endblock content %}
+
+
+        <script src="{% static 'js/vendor/popper.min.js' %}"></script>
+        <script src="{% static 'js/swipe.min.js' %}"></script>
+        <script src="{% static 'js/vendor/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/vendor/sweetalert.min.js' %}"></script>
+
+    </body>
+
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}" type="text/css">
+    <link rel="stylesheet" href="{% static 'css/chosen.min.css' %}">
+    <link href="{% static 'css/google-fonts.css' %}" rel="stylesheet">
+
+    <script src="{% static 'js/vendor/adaptor-latest.js'%}"></script>
+    <script src="{% static 'js/webrtc1.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+
+    {% block endscript %}
+    {% endblock endscript %}
+
+</html>

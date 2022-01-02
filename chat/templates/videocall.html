@@ -1,0 +1,46 @@
+{% load static %}
+<div class="tab-content" id="nav-tabContent">
+    <!-- Start of Babble -->
+    <div class="babble tab-pane fade active show" id="list-chat" role="tabpanel"
+         aria-labelledby="list-chat-list">
+        <!-- Start of Call -->
+        <div class="call" id="call1">
+            <div class="content">
+                <div class="container">
+                    <div class="col-md-12">
+                        <div class="inside">
+                            <div class="panel">
+                                <!-- <div class="participant">
+                                    <img class="avatar-xxl" src="{% static 'img/avatars/avatar-female-5.jpg' %}"
+                                            alt="avatar">
+                                    <span>Connecting</span>
+                                </div> -->
+                                <div class="options">
+                                    <button class="btn option mic_action_off mic"><i
+                                           class="material-icons md-30">mic</i></button>
+                                    <button class="btn option video_action_on video"><i
+                                           class="material-icons md-30">videocam</i></button>
+                                    <button class="btn option call_end_action"><i
+                                           class="material-icons md-30">call_end</i></button>
+                                    <!-- <button class="btn option"><i
+                                            class="material-icons md-30">person_add</i></button> -->
+                                    <!-- <button class="btn option"><i
+                                            class="material-icons md-30">volume_up</i></button> -->
+                                    <button class="btn back" name="1"><i
+                                           class="material-icons md-24">chat</i></button>
+                                </div>
+
+                                <div id="videos" class="videos">
+                                    <div id="localVideoContainer" class="videoContainer">
+                                        <video id="localVideo" autoplay muted></video>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Call -->
+    </div>
+</div>

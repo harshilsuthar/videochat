@@ -1,0 +1,19 @@
+{% load static %}
+
+
+{% for contact in contact_list.member.all %}
+    <a href="#" class="filterMembers all offline contact" data-toggle="list" data-user-id={{ contact.id }}>
+        <img class="avatar-md" src="{{ contact.image.url }}"
+            data-toggle="tooltip" data-original-title="{{ contact.get_full_name|title }}"  data-placement="top" title="{{ contact.first_name }}" alt="avatar">
+        <div class="status">
+            <i class="material-icons offline">fiber_manual_record</i>
+        </div>
+        <div class="data">
+            <h5>{{ contact.get_full_name|title }}</h5>
+            <!-- <p>Sofia, Bulgaria</p> -->
+        </div>
+        <div class="person-add">
+            <i class="material-icons">person</i>
+        </div>
+    </a>
+{% endfor %}

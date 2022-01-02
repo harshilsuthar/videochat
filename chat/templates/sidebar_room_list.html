@@ -1,0 +1,457 @@
+{% load static %}
+{% load extra_tag %}
+<!-- Start of Discussions -->
+
+<!-- search bar -->
+<div class="search">
+    <form class="form-inline position-relative">
+        <input type="search" class="form-control" id="conversations"
+               placeholder="Search for conversations...">
+        <button type="button" class="btn btn-link loop"><i
+               class="material-icons">search</i></button>
+    </form>
+    <button class="btn create" data-toggle="modal" data-target="#startnewchat"><i
+           class="material-icons">group_add</i></button>
+</div>
+
+
+<!-- discuss list -->
+<div class="list-group sort">
+    <button class="btn filterDiscussionsBtn active show" data-toggle="list"
+            data-filter="all">All</button>
+    <button class="btn filterDiscussionsBtn" data-toggle="list"
+            data-filter="read">Read</button>
+    <button class="btn filterDiscussionsBtn" data-toggle="list"
+            data-filter="unread">Unread</button>
+</div>
+<div class="discussions">
+    <h1>Discussions</h1>
+    {% if room_list|length %}
+    <div class="list-group" id="chats" role="tablist">
+
+        {% for room in room_list %}
+
+            {% if room.room_type == 'G' %}
+            <a href="#list-chat" class="filterDiscussions all {% if request.user.id in room.get_last_message.reader_user_list %}read {% else %}unread {% endif %}single list-{{ room.room_number}}"
+                id="list-chat-list" data-toggle="list" data-room-number="{{ room.room_number }}" role="tab">
+                <img class="avatar-md" src="{{ room.image.url }}"
+                    data-toggle="tooltip" data-placement="top" title="{{ room.name|title }}" alt="avatar">
+
+                {% comment %}
+                    {% if discuss.unread_messages_count %}
+                        <div class="new bg-yellow">
+                            <span>+{{ discuss.unread_messages_count }}</span>
+                        </div>
+                    {% endif %}
+                {% endcomment %}
+
+                <div class="data">
+                    <h5>{{ room.name }}</h5>
+
+                    {% if room.get_last_message %}
+                        <span>{{ room.get_last_message.created_at|last_chat_time }}</span>
+                        {% if room.get_last_message.media %}
+                            <p><i class="material-icons">attachment</i></p>
+                        {% else %}
+                            <p>{{ room.get_last_message.message }}</p>
+                        {% endif %}
+                    {% else %}
+                    <span></span>
+                    <p></p>
+                    {% endif %}
+
+                </div>
+            </a>
+            {% else %}
+            {% get_end_user room request.user as end_user %}
+            <a href="#list-chat" class="filterDiscussions all {% if request.user.id in room.get_last_message.reader_user_list %}read {% else %}unread {% endif %}single list-{{ room.room_number}}"
+                id="list-chat-list" data-toggle="list" data-room-number="{{ room.room_number }}" role="tab">
+                    <img class="avatar-md" src="{{ end_user.member.image.url }}"
+                        data-toggle="tooltip" data-original-title="{{ end_user.member.get_full_name|title }}" data-placement="top" title="{{ end_user.member.first_name|title }}" alt="avatar">
+                    <div class="status">
+                        <i class="material-icons {% if end_user.is_online %}online{% else %}offline{% endif %}">fiber_manual_record</i>
+                    </div>
+
+                    {% if discuss.unread_messages_count %}
+                    <div class="new bg-yellow">
+                        <span>+{{ discuss.unread_messages_count }}</span>
+                    </div>
+                    {% endif %}
+                    <div class="data">
+                        <h5>{{ end_user.member.get_full_name|title }}</h5>
+
+                        {% if room.get_last_message %}
+                            <span>{{ room.get_last_message.created_at|last_chat_time }}</span>
+                            {% if room.get_last_message.media %}
+                                <p><i class="material-icons">attachment</i></p>
+                            {% else %}
+                                <p>{{ room.get_last_message.message }}</p>
+                            {% endif %}
+                        {% else %}
+                            <span></span>
+                            <p></p>
+                        {% endif %}
+                    </div>
+            </a>
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+<!-- End of Discussions -->
+
+<script>
+
+    $(document).ready(function () {
+
+        $(document).on('change', '.chat', function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        })
+        $('[data-toggle="tooltip"]').tooltip();
+
+
+        // {% for room in room_list %}
+
+        // prevent multiple chat socket while reloading this page
+            if(!("{{ room.room_number }}" in room_number_list)){
+                // creating seperate websocket for each room
+                let chatSocket{{forloop.counter}} = new WebSocket(
+                    'ws://'
+                    + window.location.host
+                    + '/ws/chat/{{ room.room_number }}/'
+                )
+
+                room_number_list["{{ room.room_number }}"] = chatSocket{{forloop.counter}}
+
+                // on message response
+                chatSocket{{forloop.counter}}.onmessage = function(e){
+
+                    // getting response data
+                    var data = JSON.parse(e.data);
+                    var type = data['type']
+                    // get chat messages
+                    if(type == 'chat_message'){
+                        var room_member_image_src = data['room_member_image_src']
+                        var room_member_first_name = data['room_member_first_name']
+                        var user_id = data['user_id']
+
+                        // creating message accordingly user
+                        if(user_id == "{{ request.user.id }}"){
+                            html = `<div class="message me">
+                                        <div class="text-main">
+                                            <div class="text-group me">
+                                                <div class="text me">
+                                                    <p>current_message</p>
+                                                </div>
+                                            </div>
+                                            <span>{% now "H:i" %}</span>
+                                        </div>
+                                    </div>`.replace('current_message', data['message'])
+                        }
+                        else{
+                            $(document).ready(function () {
+                                audio.play();
+                                $('[data-toggle="tooltip"]').tooltip();
+
+                            });
+                            html = `
+                            <div class="message">
+                                <img class="avatar-md" src="room_member_image_src"
+                                    data-toggle="tooltip" data-placement="top" title="room_member_first_name" alt="avatar">
+                                <div class="text-main">
+                                    <div class="text-group">
+                                        <div class="text">
+                                            <p>current_message</p>
+                                        </div>
+                                    </div>
+                                    <span>{% now "H:i" %}</span>
+                                </div>
+                            </div>`.replace('current_message', data['message']).replace('room_member_image_src',room_member_image_src).replace('room_member_first_name',room_member_first_name)
+                        }
+                        // document.getElementById("sound").innerHTML = `<audio autoplay="autoplay"><source src="{% static 'sound/notification.mp3' %}" type="audio/mp3"></audio>`;
+                        // appending html text in chat area
+                        $("#room{{ room.room_number }}").parents('#chat1').find('#content_message').append(html);
+
+                        // scroll to bottom after adding message
+                        $("#room{{ room.room_number }}").parents('#chat1').find('#content').animate({
+                            scrollTop: $("#room{{ room.room_number }}").parents('#chat1').find('#content_message').height()
+                        })
+
+                        // add last message in chat room list
+                        $('.list-group').each(function(){
+                            $(this).children('.filterDiscussions.list-{{ room.room_number}}').each(function(){
+                                if($(this).attr('data-room-number')=="{{ room.room_number }}"){
+                                    $(this).children('.data').children('span').html("{% now 'H:i' %}")
+                                    $(this).children('.data').children('p').html(data['message'])
+                                    if($(this).hasClass('active')){
+                                        $(this).addClass('read')
+                                        $(this).removeClass('unread')
+
+                                        console.log('sending read message signal while reading message');
+                                        chatSocket{{forloop.counter}}.send(JSON.stringify({
+                                            'type': 'read_message_signal',
+                                            'user_id': "{{ request.user.id }}",
+                                            'room_number' : "{{ room.room_number }}",
+                                        }))
+                                    }
+                                    else{
+                                        $(this).addClass('unread')
+                                        $(this).removeClass('read')
+                                    }
+                                }
+                            })
+                        })
+                    }
+
+                    // get user offline signal
+                    else if(type == 'send_user_offline_signal'){
+                        // {% if room.room_type == 'P' %}
+                            console.log($('.filterDiscussions.list-{{ room.room_number}}').children('.status').children('i'));
+                            $('.filterDiscussions.list-{{ room.room_number}}').children('.status').children('i').removeClass('online')
+                            $('.filterDiscussions.list-{{ room.room_number}}').children('.status').children('i').addClass('offline')
+                            $("#online_user_names{{ room.room_number }}").html('Offline')
+                        // {% else %}
+                            $("#online_user_names{{ room.room_number }}").html(data['online_room_member_names'].join(', '))
+                        // {% endif %}
+                    }
+
+                    // get user online signal
+                    else if(type == 'new_user_join_signal'){
+
+                        // personal chat room
+                        // {% if room.room_type == 'P' %}
+
+                            // change offline status in chatlist of personal chat
+                            $('.filterDiscussions.list-{{ room.room_number}}').children('.status').children('i').removeClass('offline')
+                            $('.filterDiscussions.list-{{ room.room_number}}').children('.status').children('i').addClass('online')
+                            $("#online_user_names{{ room.room_number }}").html('Active Now')
+
+                        // group chat
+                        // {% else %}
+                        // change group online user names
+                            $("#online_user_names{{ room.room_number }}").html(data['online_room_member_names'].join(', '))
+                        // {% endif %}
+                    }
+
+                    // file upload response
+                    else if(type == 'file_upload'){
+                        console.log('file upload socket reponse handle');
+                        var room_member_image_src = data['room_member_image_src']
+                        var room_member_first_name = data['room_member_first_name']
+                        var user_id = data['user_id']
+                        // creating message accordingly user
+                        if(user_id == "{{ request.user.id }}"){
+                            var html = `
+                            <div class="message me">
+                                <div class="text-main">
+                                    <div class="text-group me">
+                                        <div class="text me">
+                                            <div class="attachment">
+                                                <button class="btn attach"><i
+                                                       class="material-icons md-18">insert_drive_file</i></button>
+                                                <div class="file">
+                                                    <h5><a href="file_src" target="_blank">file_name</a></h5>
+                                                    <span>24kb Document</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span>{% now "H:i" %}</span>
+                                </div>
+                            </div>`.replace('file_src', data['file_src']).replace('file_name',data['file_name'])
+                        }
+                        else{
+                            $(document).ready(function () {
+                                audio.play();
+                            });
+                            var html = `
+                            <div class="message">
+                                <img class="avatar-md" src="room_member_image_src" data-toggle="tooltip" data-placement="top" title="room_member_first_name" alt="avatar">
+                                <div class="text-main">
+                                    <div class="text-group">
+                                        <div class="text">
+                                            <div class="attachment">
+                                                <button class="btn attach"><i
+                                                       class="material-icons md-18">insert_drive_file</i></button>
+                                                <div class="file">
+                                                    <h5><a href="file_src" target="_blank">file_name</a></h5>
+                                                    <span>24kb Document</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span>11:07 PM</span>
+                                </div>
+                            </div>`.replace('file_src', data['file_src']).replace('file_name',data['file_name']).replace('room_member_image_src',room_member_image_src).replace('room_member_first_name',room_member_first_name)
+
+                        }
+                        // appending html text in chat area
+                        $("#room"+data['room_number']).parents('#chat1').find('#content_message').append(html);
+                        console.log($("#room"+data['room_number']).parents('#chat1').find('#content_message'),'=+++++=');
+                        // scroll to bottom after adding message
+                        $("#room"+data['room_number']).parents('#chat1').find('#content').animate({
+                            scrollTop: $("#room"+data['room_number']).parents('#chat1').find('#content_message').height()
+                        })
+
+                        // add last message in chat room list
+                        $('.list-group').each(function(){
+                            $(this).children('.filterDiscussions.list-'+data['room_number']).each(function(){
+                                if($(this).attr('data-room-number')==data['room_number']){
+                                    $(this).children('.data').children('span').html("{% now 'H:i' %}")
+                                    $(this).children('.data').children('p').html(`<i class="material-icons">attachment</i>`)
+                                    if($(this).hasClass('active')){
+                                        $(this).addClass('read')
+                                        $(this).removeClass('unread')
+
+                                        console.log('sending read message signal while reading message');
+                                        chatSocket{{forloop.counter}}.send(JSON.stringify({
+                                            'type': 'read_message_signal',
+                                            'user_id': "{{ request.user.id }}",
+                                            'room_number' : data['room_number'],
+                                        }))
+                                    }
+                                    else{
+                                        $(this).addClass('unread')
+                                        $(this).removeClass('read')
+                                    }
+                                }
+                            })
+                        })
+
+                    }
+
+
+                    else if(type == 'invite_member'){
+                        if(!(data['sender'] == "{{request.user.id }}")){
+                            $("#incoming_call").modal('show')
+                            $("#incoming_call .btn-success").unbind().click(function(e){
+                                e.preventDefault();
+                                start("{{ room.room_number }}", data.call_type,"{{room.id|get_room_member_id:request.user.id}}", "{{ request.user.get_full_name }}")
+                                $(".chat").hide(),
+                                $(".call").show();
+                            })
+                            // $('.connect').attr('disabled', 'disabled')
+                            play_incoming_call();
+                        }
+                    }
+
+                }
+
+                // open chat connection
+                chatSocket{{forloop.counter}}.onopen = function(r){
+
+                    // click on chat list in sidepanel
+                    $(document).on('click', '.filterDiscussions.list-{{ room.room_number}}', function () {
+                        var room_number = $(this).data('room-number')
+
+                        // ready room area on click
+                        $.ajax({
+                            type: "POST",
+                            headers: {'X-CSRFToken':"{{ csrf_token }}"},
+                            url: "{% url 'chat:RoomDiscussion' %}",
+                            data: { "room_number":room_number },
+                            success: (response) => {
+
+                                // change read status of clicked area
+                                $(this).parents().find('.chatarea').html(response)
+                                $(this).removeClass('unread')
+                                $(this).addClass('read')
+
+                                // send read signal to socket
+                                chatSocket{{forloop.counter}}.send(JSON.stringify({
+                                    'type': 'read_message_signal',
+                                    'user_id': "{{ request.user.id }}",
+                                    'room_number' : "{{ room.room_number }}",
+                                }))
+                            }
+                        });
+                    });
+
+                    // on send message get form
+                    $(document).on('click', '#room{{room.room_number}}', function () {
+
+                        // serialize form and get input text
+                        chat_form_array = $(this).parents('.reply-box-form').serializeArray()
+                        dataObj = {};
+                        $(chat_form_array).each(function(i, field){
+                            dataObj[field.name] = field.value;
+                        });
+                        if(dataObj['message']){
+                            chatSocket{{forloop.counter}}.send(JSON.stringify({
+                                'type' : 'chat_message',
+                                'message': dataObj['message'],
+                                'user_id': "{{ request.user.id }}"
+                            }))
+                            // empty input area after message send
+                            $(this).parent('.reply-box-form').children('textarea').val('')
+                        }
+                    });
+
+                    // on file input
+                    $(document).on("change", "#file_input_{{ room.room_number }}", function(){
+                        var file = $(this).prop('files')[0];
+                        var form = new FormData()
+                        form.append('file', file)
+                        form.append('user_id', "{{ request.user.id }}")
+                        form.append('room_number', "{{ room.room_number }}")
+                        $.ajax({
+                            type: "POST",
+                            url: "{% url 'chat:ChatFileUpload' %}",
+                            cache: false,
+                            headers: {'X-CSRFToken': "{{ csrf_token }}"},
+                            contentType: false,
+                            processData: false,
+                            data: form,
+                            success: function (response) {
+                                console.log(response);
+                            }
+                        });
+                    });
+
+
+                }
+
+                // on close websocket just log
+                chatSocket{{forloop.counter}}.onclose = function(e){
+                    console.log("chat socket close unexpectedly",e)
+                }
+            }
+
+        // {% endfor %}
+
+        // logout when power button click
+        $(document).on('click', '.btn.power', function () {
+            for(key in room_number_list){
+                room_number_list[key].close(1000, 'User Logged Out');
+                delete room_number_list[key];
+            }
+            a;
+            window.location.href = "{% url 'user:Logout' %}"
+        })
+
+        // on chat input enter click send message
+        $(document).on("keypress",".chat_input", function (e) {
+            console.log('pressing key');
+            if(e.which == 13){
+                $(this).parent('form').find('.btn.send').click()
+                return false;
+            }
+        });
+
+        // when decline call or model get hide
+        $('#incoming_call').on('hidden.bs.modal', function () {
+            incoming_call_audio.loop = false;
+            incoming_call_audio.pause();
+        });
+    });
+    var incoming_call_audio = new Audio("{% static 'sound/incoming_call.mp3' %}");
+    function play_incoming_call(){
+        incoming_call_audio.loop = true;
+        setTimeout(function () {
+            incoming_call_audio.loop = false;
+            incoming_call_audio.pause();
+            $("#incoming_call").modal('hide')
+        }, 30000);
+        incoming_call_audio.play();
+    }
+</script>

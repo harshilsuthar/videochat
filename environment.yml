@@ -1,0 +1,55 @@
+name: videochat
+channels:
+  - defaults
+dependencies:
+  - _libgcc_mutex=0.1=main
+  - ca-certificates=2021.1.19=h06a4308_1
+  - certifi=2020.12.5=py39h06a4308_0
+  - ld_impl_linux-64=2.33.1=h53a641e_7
+  - libffi=3.3=he6710b0_2
+  - libgcc-ng=9.1.0=hdf63c60_0
+  - libstdcxx-ng=9.1.0=hdf63c60_0
+  - ncurses=6.2=he6710b0_1
+  - openssl=1.1.1k=h27cfd23_0
+  - pip=21.0.1=py39h06a4308_0
+  - python=3.9.2=hdb3f193_0
+  - readline=8.1=h27cfd23_0
+  - setuptools=52.0.0=py39h06a4308_0
+  - sqlite=3.35.4=hdfb4753_0
+  - tk=8.6.10=hbc83047_0
+  - tzdata=2020f=h52ac0ba_0
+  - wheel=0.36.2=pyhd3eb1b0_0
+  - xz=5.2.5=h7b6447c_0
+  - zlib=1.2.11=h7b6447c_3
+  - pip:
+    - asgiref==3.3.4
+    - attrs==20.3.0
+    - autobahn==21.3.1
+    - automat==20.2.0
+    - autopep8==1.5.6
+    - cffi==1.14.5
+    - channels==3.0.3
+    - constantly==15.1.0
+    - cryptography==3.4.7
+    - daphne==3.0.2
+    - django==3.2
+    - django-redis==4.12.1
+    - hyperlink==21.0.0
+    - idna==3.1
+    - incremental==21.3.0
+    - pillow==8.2.0
+    - pyasn1==0.4.8
+    - pyasn1-modules==0.2.8
+    - pycodestyle==2.7.0
+    - pycparser==2.20
+    - pyopenssl==20.0.1
+    - pytz==2021.1
+    - redis==3.5.3
+    - service-identity==18.1.0
+    - six==1.15.0
+    - sqlparse==0.4.1
+    - toml==0.10.2
+    - twisted==21.2.0
+    - txaio==21.2.1
+    - zope-interface==5.3.0
+prefix: /home/acespritech/anaconda3/envs/videochat

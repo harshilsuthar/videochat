@@ -1,0 +1,56 @@
+<div class="container managemember mt-0">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-6 pl-2">
+                <button class="btn d-flex align-items-center back-button" type="button"><i
+                       class="material-icons">arrow_back</i>Return To Chats</button>
+            </div>
+
+            {% if current_member.is_admin %}
+            <div class="col-md-6 pr-2 d-flex align-items-center justify-content-end">
+                <button class="btn add-member" data-toggle="modal" data-target="#add_member_modal" title="Add Member" data-room-id = "{{ room.room_number }}"><i class="material-icons text-primary">person_add_alt_1</i></button>
+                <!-- <button class="btn"><i class="material-icons">person_remove_alt_1</i></button> -->
+            </div>
+            {% endif %}
+
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="sidebar" style="max-width: 100%; height: min-content; z-index: auto;">
+                    <div class="contacts">
+                        <div class="list-group" role="tablist">
+                            {% for room_member in room_member_list %}
+                                <a href="#" class="contact" data-toggle="list">
+                                    <img class="avatar-md" src="{{ room_member.member.image.url }}"
+                                        data-toggle="tooltip"
+                                        data-original-title="{{ room_member.member.get_full_name|title }}"
+                                        data-placement="top" title="{{ room_member.member.first_name }}" alt="avatar">
+                                    {% if request.user == room_member.member %}
+                                        <div class="data">
+                                            <h5>You</h5>
+                                        </div>
+                                        <button title="Remove Member" class="person-remove btn" data-room_member-id = "{{ room_member.id }}">
+                                            <i class="material-icons text-danger">person_remove</i>
+                                        </button>
+                                    {% else %}
+                                    <div class="data">
+                                    <h5>{{ room_member.member.get_full_name|title }}</h5>
+                                    </div>
+
+                                        {% if current_member.is_admin %}
+                                            <button title="Remove Member" class="person-remove btn" data-room_member-id = "{{ room_member.id }}">
+                                                <i class="material-icons text-danger">person_remove</i>
+                                            </button>
+                                        {% endif %}
+
+                                    {% endif %}
+
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

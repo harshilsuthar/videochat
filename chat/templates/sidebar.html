@@ -1,0 +1,539 @@
+{% load static %}
+{% load extra_tag %}
+<!-- Start of Sidebar -->
+<div class="sidebar" id="sidebar">
+    <div class="container">
+        <div class="col-md-12">
+            <div class="tab-content">
+
+            {% include 'sidebar_contacts.html' %}
+
+            <div id="discussions" class="tab-pane fade active show"></div>
+
+            {% include 'sidebar_notification.html' %}
+
+            {% include 'sidebar_settings.html' %}
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Add Friends -->
+
+<!-- Start of Add Friends -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="requests">
+            <div class="title">
+                <h1>Add your friends</h1>
+                <button type="button" class="btn" data-dismiss="modal" aria-label="Close"><i
+                       class="material-icons">close</i></button>
+            </div>
+            <div class="content">
+                <form method="POST" id="add_contact_form">
+                    <div class="form-group">
+                        <label for="user">Email Or Contact:</label>
+                        <div class="warning"></div>
+                        <input type="text" name="email_mobile" class="form-control" id="user" placeholder="Enter Email or Contact"
+                               required>
+                        <!-- <div class="user" id="contact">
+                            <img class="avatar-sm" src="{% static 'img/avatars/avatar-female-5.jpg' %}" alt="avatar">
+                            <h5>Keith Morris</h5>
+                            <button class="btn"><i class="material-icons">close</i></button>
+                        </div> -->
+                    </div>
+                    <button type="button" id="contact_form_submit" class="btn button w-100">Add To Contact</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Start of Create Chat -->
+<div class="modal fade" id="startnewchat" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="requests">
+            <div class="title">
+                <h1>Start Group Chat</h1>
+                <button type="button" class="btn" data-dismiss="modal" aria-label="Close"><i
+                       class="material-icons">close</i></button>
+            </div>
+            <div class="content">
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="participant">Group Name:</label>
+                        <input type="text" class="form-control" id="id_group_name" name="group_name" placeholder="Enter Group Name"
+                               required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Description:</label>
+                        <textarea name="group_description" class="text-control" id="id_group_description"
+                                  placeholder="Send your welcome message..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="participant">Group Image:</label>
+                        <input type="file" name="group_image"  class="form-control" id="id_group_image" accept="image/*" placeholder="Enter Group Image"
+                               required>
+                    </div>
+                    <button type="button" id="group_form_submit" class="btn button w-100">Start New Chat</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Create Chat -->
+
+<!-- add member modal -->
+<div class="modal fade" id="add_member_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="requests">
+            <div class="title">
+                <h1>Add New Member</h1>
+                <button type="button" class="btn" data-dismiss="modal" aria-label="Close"><i
+                       class="material-icons">close</i></button>
+            </div>
+            <div class="content">
+                <form method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <input type="hidden" id="id_hidden_room_number" name="room_number">
+                        <label for="id_member">Add members from your contacts</label>
+                        <select id="id_member" name='member' data-placeholder="Select From Contacts" class="chosen-select form-control" multiple style="width:350px;" tabindex="4">
+                        </select>
+                    </div>
+                    <button type="button" id="add_member_form_submit" class="btn button w-100">Add Member</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Sidebar -->
+
+
+<!-- Modal -->
+<div id="incoming_call" class="modal custom-modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="profile-widget">
+                    <div class="profile-img">
+                        <a href="#" class="avatar"><img src="{{ request.user.image.url }}" alt=""></a>
+                    </div>
+                    <h4 class="user-name m-t-10 mb-0 text-ellipsis"><a href="#">Tressa Wexler</a></h4>
+                    <div class="small text-muted">calling ...</div>
+                    <div class="incoming-btns">
+                        <a href="#" class="btn btn-success m-r-10" data-dismiss="modal">Answer</a>
+                        <a href="#" class="btn btn-danger" data-dismiss="modal">Decline</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#exampleModal').on('show.bs.modal', event => {
+        var button = $(event.relatedTarget);
+        var modal = $(this);
+        // Use above variables to manipulate the DOM
+
+    });
+</script>
+
+
+
+
+
+<!-- discussion -->
+<script>
+    // load discussion list
+    $(document).ready(function () {
+        $(document).on("click", "#discussion_nav", function(){
+            $.ajax({
+                type: "GET",
+                url: "{% url 'chat:RoomList' %}",
+                success: (response) => {
+                    $('#discussions').html(response);
+                }
+            });
+        })
+        // open discussion list when screen loads
+        $('#discussion_nav').click()
+
+        // create new group
+        $(document).on("click", "#group_form_submit", function(){
+            var form = new FormData()
+            form.append('group_name', $(this).parents('form').find('#id_group_name').prop('value'))
+            form.append('group_description', $(this).parents('form').find('#id_group_description').prop('value'))
+            form.append('group_image', $(this).parents('form').find('#id_group_image').prop('files')[0])
+            $.ajax({
+                type: "POST",
+                url: "{% url 'chat:CreateGroup' %}",
+                headers: {'X-CSRFToken': "{{ csrf_token }}"},
+                data: form,
+                processData: false,
+                contentType: false,
+                cache: false,
+                success: (response) => {
+                    $('#discussion_nav').click()
+                    $(this).parents("#startnewchat").modal('hide')
+                }
+            });
+        })
+
+    });
+</script>
+
+
+<!-- contacts -->
+<script>
+    $(document).ready(function () {
+        // click on contacts load list
+        $(document).on("click", "#contact_div", function(){
+            $.ajax({
+                type: "GET",
+                url: "{% url 'chat:ContactView' %}",
+                success: function (response) {
+                    $('#contacts').html(response)
+                }
+            });
+        }).click();
+
+        // add contact by submiting form
+        $(document).on('click', "#contact_form_submit", function (e) {
+            $.ajax({
+                type: "POST",
+                headers:{'X-CSRFToken':"{{ csrf_token }}"},
+                url: "{% url 'chat:ContactView' %}",
+                data: $(this).parents('form').serialize(),
+                success: (response) =>{
+                    // update contact list
+                    if(response==201){
+                        $(this).parents('body').find('#contacts').load("{% url 'chat:ContactView' %}"," #"+$(this).parents('body').find('#contacts').prop('id')+" > *", "")
+                        $(this).parents('.modal').modal('hide')
+                    }
+                    // send error message in form
+                    else if(response == 404){
+                        console.log('user does not exist');
+                        $(this).parents('form').find('.warning').html('User not exist!')
+                        $(this).parents('form').find('.warning').addClass('alert alert-danger')
+                    }
+                    // send error message in form
+                    else if(response == 422){
+                        $(this).parents('form').find('.warning').html('Enter valid email or mobile')
+                        $(this).parents('form').find('.warning').addClass('alert alert-danger')
+                        console.log('enter valid email or mobile')
+                    }
+                    // send error message in form
+                    else if(response == 403){
+                        $(this).parents('form').find('.warning').html("You can't add yourself into contacts")
+                        $(this).parents('form').find('.warning').addClass('alert alert-danger')
+                    }
+                }
+            });
+        })
+
+        // send invitation or open the discussion if accepted
+        $(document).on('click', '.filterMembers', function(){
+            var end_user_id = $(this).data('user-id');
+            // check wather current user and selected contact have room?
+            // ajax load room or send invitation
+            $.ajax({
+                type: "POST",
+                url: "{% url 'chat:GetRoomOrSendInvitation' %}",
+                headers:{'X-CSRFToken': "{{ csrf_token }}"},
+                data: {'end_user_id': end_user_id},
+                success: (response) => {
+                    console.log(response);
+                    if(response.status == 200){
+                        $(this).parents('.layout').find('.sidebar').find('.list-'+response.room_id).click()
+                        $(this).parents('.layout').find('.navigation').find('#discussion_nav').children('i').click()
+                    }
+                    else{
+                        $(this).parents('main').find('.chatarea').html(response)
+                    }
+                    $('[data-toggle="tooltip"]').tooltip();
+                }
+            });
+        })
+
+    });
+</script>
+
+
+<!-- notification -->
+<script>
+    $(document).ready(function () {
+        // load notifications
+        $(document).on("click", "#notification_nav", function(){
+            $.ajax({
+                type: "GET",
+                url: "{% url 'chat:ListInvitation' %}",
+                success: function (response) {
+                    if(response == 'No new notification'){
+                        $('#alerts').html(response)
+                    }
+                    else{
+                        $('#alerts').html(response)
+                    }
+                }
+            });
+        }).click()
+
+        // open invitation from the notification area
+        $(document).on("click", '.filterNotifications', function(){
+            var invitation_id = $(this).data('invitation-id')
+            $.ajax({
+                type: "POST",
+                url: "{% url 'chat:LoadInvitation' %}",
+                headers: {'X-CSRFToken': "{{ csrf_token }}"},
+                data: {'invitation_id': invitation_id},
+                success: (response) => {
+                    $(this).parents('.layout').find('.chatarea').html(response)
+                }
+            });
+        })
+
+        // accept the invitation
+        $(document).ready(function () {
+            $(document).on('click', '.button.accept', function () {
+                var invitation_id = $(this).parents('.request').data('invitation-id')
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'chat:AcceptInvitation' %}",
+                    headers: {'X-CSRFToken': "{{ csrf_token }}"},
+                    data: {'invitation_id': invitation_id},
+                    success: (response) => {
+                        if(response == 'Could Not Process Invitaion'){
+                            $(this).parents('.layout').find('.chatarea').html(response)
+                        }
+                        else{
+                            $('#discussion_nav').click()
+                            $(this).parents('.layout').find('.chatarea').html(response)
+                        }
+                        $('[data-toggle="tooltip"]').tooltip();
+                    },
+                    error: (response, status) => {
+                        $(this).parents('.layout').find('.chatarea').html(response)
+                    }
+                });
+            })
+        });
+    });
+</script>
+
+
+<!-- group member manage -->
+<script>
+$(document).ready(function () {
+    // click manage member from the dropdown of the group
+    $(document).on('click', '.manage_member', function () {
+        var room_id = $(this).data('room-id')
+        console.log($(this).parents('.chatarea'), room_id);
+        $.ajax({
+            type: "GET",
+            url: "{% url 'chat:ManageGroup' %}",
+            data: {'room_number': room_id},
+            success: (response) => {
+                if(response.status == 404){
+                    swal('Room Not Found')
+                }
+                else{
+                    console.log($(this).parents('.chat').find('.content').children('.container.content_message'),'------');
+                    $(this).parents('.chat').find('.content').children('.container.content_message').addClass('d-none')
+                    $(this).parents('.chat').find('.content').append(response)
+                }
+                $('[data-toggle="tooltip"]').tooltip();
+            }
+        });
+    })
+
+    // back to conversions
+    $(document).on('click', ".container.managemember .back-button", function () {
+        console.log('clicking back button',$(this).parents('.chat').find('.content').children('.content.managemember'));
+        $(this).parents('.chat').find('.content').children('.container.content_message').removeClass('d-none')
+        $(this).parents('.chat').find('.content').children('.container.managemember').addClass('d-none')
+    });
+
+    // model before show
+    $('#add_member_modal').on('show.bs.modal', function(event) {
+        var room_number = $(event.relatedTarget).data('room-id');
+        $('#id_hidden_room_number', this).val(room_number)
+        console.log(room_number)
+        $.ajax({
+            type: "GET",
+            url: "{% url 'chat:GroupMemberAddList' %}",
+            data: {'room_number': room_number},
+            success: (response) => {
+                $(".chosen-select").html(response)
+            }
+        });
+    });
+
+    // model after show
+    $('#add_member_modal').on('shown.bs.modal', function(event) {
+        var button = $(event.relatedTarget);
+        var modal = $(this);
+        // Use above variables to manipulate the DOM
+        $(".chosen-select", this).chosen();
+    });
+
+    // submit add member form
+    $(document).on('click', '#add_member_form_submit', function () {
+        var form = $(this).parent('form').serialize()
+        console.log(form,'--------add group member form');
+        $.ajax({
+            type: "POST",
+            headers:{'X-CSRFToken': "{{ csrf_token }}"},
+            url: "{% url 'chat:AddGroupMember' %}",
+            data: form,
+            success: (response) => {
+                if(response.status == 200){
+                    $(".chosen-select").val('').trigger("chosen:updated");
+                    $(this).parents('.modal').modal('hide')
+                    $('.chat').find('.content').load("{% url 'chat:ManageGroup' %}?room_number="+$(this).parent('form').find('#id_hidden_room_number').val(), ".content>*")
+                }
+                else if(response.status==404){
+                    swal('', response.message, 'error')
+                }
+                else{
+                    swal('', response.message, 'error')
+                }
+                $('.sidebar').children('.list-group').load(' .list-group>*', '')
+
+            }
+        });
+    });
+
+    // remove member click from the group
+    $(document).on('click', '.person-remove.btn', function () {
+        var room_member_id = $(this).data('room_member-id')
+        swal({
+            title:'Are you sure?',
+            text:'Do you want to remove this member from the group?',
+            icon:'warning',
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((Delete) => {
+            if(Delete){
+                $.ajax({
+                    type: "POST",
+                    url: "{% url 'chat:RemoveGroupMember' %}",
+                    headers: {'X-CSRFToken': "{{ csrf_token }}"},
+                    data: {'room_member_id':room_member_id},
+                    success: (response) => {
+                        if(response.status == 202){
+                            console.log($(this),'------remove button');
+                            $(this).parent('.contact').remove()
+                            swal("You have successfully remove the user from the group", {icon:'success'});
+                        }
+                        else if(response.status == 203){
+                            console.log($(this),'------remove button');
+                            $(this).parent('.contact').remove()
+                            $('.chatarea').html('')
+                            $('.list-'+response.room_number).remove()
+                            room_number_list[response.room_number].close()
+                            swal("You have successfully remove the user from the group", {icon:'success'});
+                        }
+                        else if(response.status == 401){
+                            swal("You have no right to remove this memeber from this group", {icon:'error'});
+                        }
+                        else if(response.status == 500){
+                            swal("Something Went wrong", {icon:'warning'});
+                        }
+                        else if(response.status == 404){
+                            swal("This member does not exist", {icon:'error'});
+                        }
+                    }
+                });
+            }
+        })
+    });
+});
+</script>
+
+
+<script>
+    $(document).ready(function () {
+        $(document).on('click', '.connect', function () {
+            console.log('clicking call');
+            room_number = $(this).data("room-number")
+            call_type = $(this).data("call-type")
+            member_id = $(this).data('member-id')
+            console.log(room_number, call_type, member_id, '-------------');
+            room_number_list[room_number].send(JSON.stringify({
+                                type: 'invite_member',
+                                call_type: $(this).data('call-type')
+                            }))
+            start(room_number, call_type, member_id, "{{ request.user.get_full_name }}");
+        });
+    });
+</script>
+
+<!-- change avatar -->
+<script>
+    $(document).ready(function () {
+        // change user profile pic
+        $(document).on("change", "#id_profile_pic_input", function () {
+            var file = $(this).prop('files')[0];
+            var form = new FormData()
+            form.append('profile_pic_input', file)
+            $.ajax({
+                type: "POST",
+                url: "{% url 'chat:ChangeAvatar' %}",
+                headers: {'X-CSRFToken':"{{ csrf_token }}"},
+                data: form,
+                contentType: false,
+                processData: false,
+                cache: false,
+                success: (response) => {
+                    if(response.status == 200){
+                        swal("Avatar Changed Successfully", "", "success")
+                        $(this).parents('.upload').load(" .upload>*")
+                        console.log($('.inside .menu .avatar-xl'));
+                        $('.profile_pic').load(' .profile_pic>*')
+                        $('.profile').load(" .profile>*")
+                    }else if(response.status == 400){
+                        swal("Not Accepted", "Please enter valid file type", "error")
+                    }else if(response.status == 404){
+                        swal("User Not Exist", "Can't find user", "error")
+                    }else{
+                        swal("Internal Error", "", "error")
+                    }
+                }
+            });
+        });
+
+
+        // update user profile details
+        $(document).on("click", "#profile_update_button", function () {
+            let user_profile_update_form = $(this).parents('form').serialize()
+            $.ajax({
+                type: "POST",
+                url: "{% url 'chat:UpdateProfile' %}",
+                headers:{'X-CSRFToken':"{{ csrf_token }}"},
+                data: user_profile_update_form,
+                success: (response) => {
+                    console.log(response);
+                    if(response.status == 200){
+                        $(this).parents('form').load(" .user_profile_update_form>*")
+                        swal("Success", "Your profile updated successfully", "success")
+                    }else if(response.status == 400 || response.status == 500){
+                        console.log(response.message);
+                        var errors = response.message
+                        $(this).siblings('.errors').html("<ul>")
+                        for(error of errors){
+                            $(this).siblings('.errors').append("<li>"+error+"</li>")
+                        }
+                        $(this).siblings('.errors').append("</ul>")
+                        swal("Not valid", "Please enter valid form data", "error")
+                    }else if(response.status == 404){
+                        swal("User Not Exist", "Can't find user", "error")
+                    }
+                }
+            });
+        });
+
+    });
+</script>

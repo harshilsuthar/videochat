@@ -1,0 +1,126 @@
+.sidebar .discussions .single.read .data span,
+.sidebar .discussions .single.read .data p,
+.sidebar .discussions .single.read .data p i{
+    color:#bdbac2;
+    font-weight: 400!important;
+}
+
+/* Container */
+#videos {
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+}
+/* videoContainer */
+#videos div {
+
+    position: relative;
+    vertical-align: middle;
+    align-self: center;
+    border-radius: 10px;
+    overflow: hidden;
+    /* display: inline-block; */
+    box-shadow: 0px 12px 22px rgba(0, 0, 0, 0.4);
+    background: #fff;
+    animation: show 0.4s ease;
+
+}
+
+/* Animation */
+@keyframes show {
+    0% {
+        opacity: 0;
+        transform: scale(0.4) translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+
+
+
+.profile-widget {
+	background-color: #fff;
+	border-radius: 4px;
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+	margin-bottom: 30px;
+	padding: 20px;
+	text-align: center;
+	position: relative;
+	overflow: hidden;
+}
+.profile-widget .user-name > a {
+	color: #333;
+}
+
+.custom-modal .profile-widget {
+	margin-bottom: 0;
+}
+
+.incoming-btns {
+	margin-top: 20px;
+}
+
+.profile-img {
+	cursor: pointer;
+	height: 80px;
+	margin: 0 auto;
+	position: relative;
+	width: 80px;
+}
+
+.profile-img .avatar {
+	font-size: 24px;
+	height: 80px;
+	line-height: 80px;
+	margin: 0;
+	width: 80px;
+}
+
+.profile-widget .btn-success {
+	background-color: #55ce63;
+	border: 1px solid #55ce63
+}
+
+.profile-widget .btn-danger {
+	background: #f62d51;
+	border: 1px solid #f62d51
+}
+
+.avatar {
+	background-color: #aaa;
+	border-radius: 50%;
+	color: #fff;
+	display: inline-block;
+	font-weight: 500;
+	height: 38px;
+	line-height: 38px;
+	margin: 0 10px 0 0;
+	overflow: hidden;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	vertical-align: middle;
+	width: 38px;
+	position: relative;
+	white-space: nowrap;
+}
+.avatar:hover {
+	color: #fff;
+}
+.avatar > img {
+	width: 100%;
+	display: block;
+}
+
+video
+{
+    transform: rotateY(180deg);
+    -webkit-transform:rotateY(180deg); /* Safari and Chrome */
+    -moz-transform:rotateY(180deg); /* Firefox */
+}

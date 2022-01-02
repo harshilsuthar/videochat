@@ -1,0 +1,757 @@
+[
+    {
+        "model": "admin.logentry",
+        "pk": 1,
+        "fields": {
+            "action_time": "2021-04-13T08:14:52.934Z",
+            "user": 1,
+            "content_type": 9,
+            "object_id": "1",
+            "object_repr": "room-type: G room-number: 769c4548-e13e-4f53-869a-8fae518215ca",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 2,
+        "fields": {
+            "action_time": "2021-04-13T08:16:04.327Z",
+            "user": 1,
+            "content_type": 6,
+            "object_id": "1",
+            "object_repr": "admin@admin.com",
+            "action_flag": 2,
+            "change_message": "[{\"changed\": {\"fields\": [\"Mobile\", \"Image\"]}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 3,
+        "fields": {
+            "action_time": "2021-04-13T09:14:13.005Z",
+            "user": 1,
+            "content_type": 7,
+            "object_id": "1",
+            "object_repr": "Message object (1)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 4,
+        "fields": {
+            "action_time": "2021-04-13T09:34:04.407Z",
+            "user": 1,
+            "content_type": 9,
+            "object_id": "2",
+            "object_repr": "room-type: P room-number: b7ccb066-f744-4948-a8c8-3b0843a549d5",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 5,
+        "fields": {
+            "action_time": "2021-04-13T09:37:43.863Z",
+            "user": 1,
+            "content_type": 6,
+            "object_id": "2",
+            "object_repr": "adamsmith@gmail.com",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 6,
+        "fields": {
+            "action_time": "2021-04-13T09:37:47.768Z",
+            "user": 1,
+            "content_type": 6,
+            "object_id": "2",
+            "object_repr": "adamsmith@gmail.com",
+            "action_flag": 2,
+            "change_message": "[]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 7,
+        "fields": {
+            "action_time": "2021-04-13T09:38:05.165Z",
+            "user": 1,
+            "content_type": 10,
+            "object_id": "3",
+            "object_repr": "RoomMember object (3)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 8,
+        "fields": {
+            "action_time": "2021-04-13T10:14:55.290Z",
+            "user": 1,
+            "content_type": 7,
+            "object_id": "2",
+            "object_repr": "Message object (2)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 9,
+        "fields": {
+            "action_time": "2021-04-13T10:15:02.559Z",
+            "user": 1,
+            "content_type": 7,
+            "object_id": "3",
+            "object_repr": "Message object (3)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 10,
+        "fields": {
+            "action_time": "2021-04-13T10:15:13.573Z",
+            "user": 1,
+            "content_type": 7,
+            "object_id": "4",
+            "object_repr": "Message object (4)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 11,
+        "fields": {
+            "action_time": "2021-04-13T10:15:27.082Z",
+            "user": 1,
+            "content_type": 7,
+            "object_id": "5",
+            "object_repr": "Message object (5)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 12,
+        "fields": {
+            "action_time": "2021-04-13T10:57:01.350Z",
+            "user": 1,
+            "content_type": 10,
+            "object_id": "4",
+            "object_repr": "adam smith room-type: G room-number: 769c4548-e13e-4f53-869a-8fae518215ca",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "admin.logentry",
+        "pk": 13,
+        "fields": {
+            "action_time": "2021-04-13T10:57:23.977Z",
+            "user": 1,
+            "content_type": 7,
+            "object_id": "6",
+            "object_repr": "Message object (6)",
+            "action_flag": 1,
+            "change_message": "[{\"added\": {}}]"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 1,
+        "fields": {
+            "name": "Can add log entry",
+            "content_type": 1,
+            "codename": "add_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 2,
+        "fields": {
+            "name": "Can change log entry",
+            "content_type": 1,
+            "codename": "change_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 3,
+        "fields": {
+            "name": "Can delete log entry",
+            "content_type": 1,
+            "codename": "delete_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 4,
+        "fields": {
+            "name": "Can view log entry",
+            "content_type": 1,
+            "codename": "view_logentry"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 5,
+        "fields": {
+            "name": "Can add permission",
+            "content_type": 2,
+            "codename": "add_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 6,
+        "fields": {
+            "name": "Can change permission",
+            "content_type": 2,
+            "codename": "change_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 7,
+        "fields": {
+            "name": "Can delete permission",
+            "content_type": 2,
+            "codename": "delete_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 8,
+        "fields": {
+            "name": "Can view permission",
+            "content_type": 2,
+            "codename": "view_permission"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 9,
+        "fields": {
+            "name": "Can add group",
+            "content_type": 3,
+            "codename": "add_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 10,
+        "fields": {
+            "name": "Can change group",
+            "content_type": 3,
+            "codename": "change_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 11,
+        "fields": {
+            "name": "Can delete group",
+            "content_type": 3,
+            "codename": "delete_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 12,
+        "fields": {
+            "name": "Can view group",
+            "content_type": 3,
+            "codename": "view_group"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 13,
+        "fields": {
+            "name": "Can add content type",
+            "content_type": 4,
+            "codename": "add_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 14,
+        "fields": {
+            "name": "Can change content type",
+            "content_type": 4,
+            "codename": "change_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 15,
+        "fields": {
+            "name": "Can delete content type",
+            "content_type": 4,
+            "codename": "delete_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 16,
+        "fields": {
+            "name": "Can view content type",
+            "content_type": 4,
+            "codename": "view_contenttype"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 17,
+        "fields": {
+            "name": "Can add session",
+            "content_type": 5,
+            "codename": "add_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 18,
+        "fields": {
+            "name": "Can change session",
+            "content_type": 5,
+            "codename": "change_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 19,
+        "fields": {
+            "name": "Can delete session",
+            "content_type": 5,
+            "codename": "delete_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 20,
+        "fields": {
+            "name": "Can view session",
+            "content_type": 5,
+            "codename": "view_session"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 21,
+        "fields": {
+            "name": "Can add user",
+            "content_type": 6,
+            "codename": "add_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 22,
+        "fields": {
+            "name": "Can change user",
+            "content_type": 6,
+            "codename": "change_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 23,
+        "fields": {
+            "name": "Can delete user",
+            "content_type": 6,
+            "codename": "delete_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 24,
+        "fields": {
+            "name": "Can view user",
+            "content_type": 6,
+            "codename": "view_user"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 25,
+        "fields": {
+            "name": "Can add message",
+            "content_type": 7,
+            "codename": "add_message"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 26,
+        "fields": {
+            "name": "Can change message",
+            "content_type": 7,
+            "codename": "change_message"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 27,
+        "fields": {
+            "name": "Can delete message",
+            "content_type": 7,
+            "codename": "delete_message"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 28,
+        "fields": {
+            "name": "Can view message",
+            "content_type": 7,
+            "codename": "view_message"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 29,
+        "fields": {
+            "name": "Can add personal chat",
+            "content_type": 8,
+            "codename": "add_personalchat"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 30,
+        "fields": {
+            "name": "Can change personal chat",
+            "content_type": 8,
+            "codename": "change_personalchat"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 31,
+        "fields": {
+            "name": "Can delete personal chat",
+            "content_type": 8,
+            "codename": "delete_personalchat"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 32,
+        "fields": {
+            "name": "Can view personal chat",
+            "content_type": 8,
+            "codename": "view_personalchat"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 33,
+        "fields": {
+            "name": "Can add room",
+            "content_type": 9,
+            "codename": "add_room"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 34,
+        "fields": {
+            "name": "Can change room",
+            "content_type": 9,
+            "codename": "change_room"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 35,
+        "fields": {
+            "name": "Can delete room",
+            "content_type": 9,
+            "codename": "delete_room"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 36,
+        "fields": {
+            "name": "Can view room",
+            "content_type": 9,
+            "codename": "view_room"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 37,
+        "fields": {
+            "name": "Can add room member",
+            "content_type": 10,
+            "codename": "add_roommember"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 38,
+        "fields": {
+            "name": "Can change room member",
+            "content_type": 10,
+            "codename": "change_roommember"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 39,
+        "fields": {
+            "name": "Can delete room member",
+            "content_type": 10,
+            "codename": "delete_roommember"
+        }
+    },
+    {
+        "model": "auth.permission",
+        "pk": 40,
+        "fields": {
+            "name": "Can view room member",
+            "content_type": 10,
+            "codename": "view_roommember"
+        }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 1,
+        "fields": { "app_label": "admin", "model": "logentry" }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 2,
+        "fields": { "app_label": "auth", "model": "permission" }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 3,
+        "fields": { "app_label": "auth", "model": "group" }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 4,
+        "fields": { "app_label": "contenttypes", "model": "contenttype" }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 5,
+        "fields": { "app_label": "sessions", "model": "session" }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 6,
+        "fields": { "app_label": "user", "model": "user" }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 7,
+        "fields": { "app_label": "chat", "model": "message" }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 8,
+        "fields": { "app_label": "chat", "model": "personalchat" }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 9,
+        "fields": { "app_label": "chat", "model": "room" }
+    },
+    {
+        "model": "contenttypes.contenttype",
+        "pk": 10,
+        "fields": { "app_label": "chat", "model": "roommember" }
+    },
+    {
+        "model": "sessions.session",
+        "pk": "vpfxkxyuvzg7ybwba2wjza7qnomcxljy",
+        "fields": {
+            "session_data": ".eJxVjEEOwiAQRe_C2pBCCwwu3XsGMjAzUjVtUtqV8e7apAvd_vfef6mE21rT1nhJI6mzMur0u2UsD552QHecbrMu87QuY9a7og_a9HUmfl4O9--gYqvfOvcUAg3gTW8zBhEuECWC5yESehAbios9SADfcWYEEeJcOivGOU_q_QH53TjD:1lWEBN:oNQaDtS0IEzet6acnUrkDyuqd5khuXCBZMGxvMQbvg8",
+            "expire_date": "2021-04-27T08:14:01.272Z"
+        }
+    },
+    {
+        "model": "user.user",
+        "pk": 1,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$hivRtaMXN75Zvb4L2zkChj$ARcOFadZkY3dS4/PnNMd96vuyeHq2uLk1phUKTk76bg=",
+            "last_login": "2021-04-13T08:14:01.268Z",
+            "is_superuser": true,
+            "is_staff": true,
+            "is_active": true,
+            "date_joined": "2021-04-13T08:13:38.152Z",
+            "email": "admin@admin.com",
+            "image": "user_profile/user_profile.png",
+            "first_name": "harshil",
+            "last_name": "suthar",
+            "mobile": "+919426718692",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "user.user",
+        "pk": 2,
+        "fields": {
+            "password": "pbkdf2_sha256$260000$MfJaQL9Z5pEjvBYBa0Pkse$fXQvgzfwBXvI6Pw0IcduLPC1OZosdRf2gWVQcCrZ7k4=",
+            "last_login": null,
+            "is_superuser": false,
+            "is_staff": false,
+            "is_active": true,
+            "date_joined": "2021-04-13T09:37:43.500Z",
+            "email": "adamsmith@gmail.com",
+            "image": "user_profile/favicon.png",
+            "first_name": "adam",
+            "last_name": "smith",
+            "mobile": "+911234567890",
+            "groups": [],
+            "user_permissions": []
+        }
+    },
+    {
+        "model": "chat.room",
+        "pk": 1,
+        "fields": {
+            "created_at": "2021-04-13T08:14:52.922Z",
+            "updated_at": "2021-04-13T08:14:52.922Z",
+            "room_number": "769c4548-e13e-4f53-869a-8fae518215ca",
+            "name": "IT Rockers",
+            "description": "IT group",
+            "image": "group_images/hp_legion_2.jpg",
+            "room_type": "G"
+        }
+    },
+    {
+        "model": "chat.room",
+        "pk": 2,
+        "fields": {
+            "created_at": "2021-04-13T09:34:04.395Z",
+            "updated_at": "2021-04-13T09:34:04.395Z",
+            "room_number": "b7ccb066-f744-4948-a8c8-3b0843a549d5",
+            "name": null,
+            "description": null,
+            "image": "",
+            "room_type": "P"
+        }
+    },
+    {
+        "model": "chat.roommember",
+        "pk": 1,
+        "fields": {
+            "created_at": "2021-04-13T08:14:52.932Z",
+            "updated_at": "2021-04-13T08:14:52.932Z",
+            "member": 1,
+            "room": 1,
+            "is_admin": true
+        }
+    },
+    {
+        "model": "chat.roommember",
+        "pk": 2,
+        "fields": {
+            "created_at": "2021-04-13T09:34:04.403Z",
+            "updated_at": "2021-04-13T09:34:04.403Z",
+            "member": 1,
+            "room": 2,
+            "is_admin": true
+        }
+    },
+    {
+        "model": "chat.roommember",
+        "pk": 3,
+        "fields": {
+            "created_at": "2021-04-13T09:38:05.163Z",
+            "updated_at": "2021-04-13T09:38:05.163Z",
+            "member": 2,
+            "room": 2,
+            "is_admin": false
+        }
+    },
+    {
+        "model": "chat.roommember",
+        "pk": 4,
+        "fields": {
+            "created_at": "2021-04-13T10:57:01.348Z",
+            "updated_at": "2021-04-13T10:57:01.348Z",
+            "member": 2,
+            "room": 1,
+            "is_admin": false
+        }
+    },
+    {
+        "model": "chat.message",
+        "pk": 1,
+        "fields": {
+            "created_at": "2021-04-13T09:14:12.996Z",
+            "room_member": 1,
+            "message": "test",
+            "media": ""
+        }
+    },
+    {
+        "model": "chat.message",
+        "pk": 2,
+        "fields": {
+            "created_at": "2021-04-13T10:14:55.287Z",
+            "room_member": 3,
+            "message": "hello",
+            "media": ""
+        }
+    },
+    {
+        "model": "chat.message",
+        "pk": 3,
+        "fields": {
+            "created_at": "2021-04-13T10:15:02.557Z",
+            "room_member": 3,
+            "message": "hii",
+            "media": ""
+        }
+    },
+    {
+        "model": "chat.message",
+        "pk": 4,
+        "fields": {
+            "created_at": "2021-04-13T10:15:13.571Z",
+            "room_member": 2,
+            "message": "how are you?",
+            "media": ""
+        }
+    },
+    {
+        "model": "chat.message",
+        "pk": 5,
+        "fields": {
+            "created_at": "2021-04-13T10:15:27.079Z",
+            "room_member": 3,
+            "message": "I am fine, How are you?",
+            "media": ""
+        }
+    },
+    {
+        "model": "chat.message",
+        "pk": 6,
+        "fields": {
+            "created_at": "2021-04-13T10:57:23.975Z",
+            "room_member": 4,
+            "message": "how are you harshil?",
+            "media": ""
+        }
+    }
+]

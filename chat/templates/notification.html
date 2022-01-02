@@ -1,0 +1,16 @@
+{% load static %}
+
+{% for invitation in contact_request_list %}
+
+    <a href="#" class="filterNotifications all latest notification invitation-{{ invitation.id }}" data-invitation-id="{{ invitation.id }}" data-toggle="list">
+        <img class="avatar-md" src="{{ invitation.sender.image.url }}"
+            data-toggle="tooltip" data-placement="top" title="Michael" alt="avatar">
+        <div class="status">
+            <i class="material-icons online">fiber_manual_record</i>
+        </div>
+        <div class="data">
+            <p>{{ request.user.get_full_name|title }}, you have a new friend request</p>
+            <span>{{ invitation.created_at|date:"b d, Y H:i"}}</span>
+        </div>
+    </a>
+{% endfor %}

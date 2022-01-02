@@ -1,0 +1,54 @@
+{% load extra_tag %}
+{% get_end_user room request.user as end_user %}
+
+{% for message in messages %}
+    {% if message.room_member.member == request.user %}
+    <div class="message me">
+        <div class="text-main">
+            <div class="text-group me">
+                <div class="text me">
+                    {% if message.media %}
+                        <div class="attachment">
+                            <button class="btn attach"><i
+                                class="material-icons md-18">insert_drive_file</i></button>
+                            <div class="file">
+                                <h5><a href="{{ message.media.url }}" target="_blank">{{ message.media.name }}</a></h5>
+                                <span>24kb Document</span>
+                            </div>
+                        </div>
+                    {% else %}
+                        <p>{{ message.message }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            <span>{{ message.created_at|date:"H:m"}}</span>
+        </div>
+    </div>
+    {% else %}
+    <div class="message">
+        <img class="avatar-md" src="{{ message.room_member.member.image.url }}"
+            data-toggle="tooltip" data-placement="top" data-original-title="{{ message.room_member.member.get_full_name|title }}" title="{{ message.room_member.member.first_name|title }}" alt="avatar">
+        <div class="text-main">
+            <div class="text-group">
+                <div class="text">
+
+                    {% if message.media %}
+                    <div class="attachment">
+                        <button class="btn attach"><i
+                            class="material-icons md-18">insert_drive_file</i></button>
+                        <div class="file">
+                            <h5><a href="{{ message.media.url }}" target="_blank">{{ message.media.name }}</a></h5>
+                            <span>24kb Document</span>
+                        </div>
+                    </div>
+                    {% else %}
+                        <p>{{ message.message }}</p>
+                    {% endif %}
+
+                </div>
+            </div>
+            <span>{{ message.created_at|date:"H:m"}}</span>
+        </div>
+    </div>
+    {% endif %}
+{% endfor %}

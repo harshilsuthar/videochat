@@ -1,0 +1,112 @@
+{% load static %}
+{% load extra_tag %}
+{% get_end_user room request.user as end_user %}
+{% get_current_room_member room request.user as current_room_member %}
+<div class="tab-content" id="nav-tabContent">
+    <!-- Start of Babble -->
+    <div class="babble tab-pane fade active show" id="list-chat" role="tabpanel"
+            aria-labelledby="list-chat-list">
+        <!-- Start of Chat -->
+        <div class="chat" id="chat1">
+            <div class="top">
+                <div class="container">
+                    <div class="col-md-12">
+                        <div class="inside">
+                            <a href="#"><img class="avatar-md" src="{{ end_user.member.image.url }}"
+                                        data-toggle="tooltip" data-placement="top" title="{{ end_user.member.first_name|title  }}"
+                                        alt="avatar"></a>
+                            <div class="status">
+                                <i class="material-icons online">fiber_manual_record</i>
+                            </div>
+                            <div class="data">
+                                <h5><a href="#">{{ end_user.member.get_full_name|title }}</a></h5>
+                                <span id='online_user_names{{ room.room_number }}'>
+
+                                    {% if end_user.is_online %}
+                                        Active Now
+                                    {% else %}
+                                        Offline
+                                    {% endif %}
+
+                                </span>
+                            </div>
+                            <button class="btn connect d-md-block d-none" name="1" data-room-number="{{ room.room_number }}" data-call-type="voice" data-member-id={{ current_room_member.id }}><i
+                                    class="material-icons md-30">phone_in_talk</i></button>
+                            <button class="btn connect d-md-block d-none" name="1" data-room-number="{{ room.room_number }}" data-call-type="video" data-member-id={{ current_room_member.id }}><i
+                                    class="material-icons md-36" >videocam</i></button>
+                            <button class="btn d-md-block d-none"><i
+                                    class="material-icons md-30">info</i></button>
+                            <div class="dropdown">
+                                <button class="btn" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false"><i
+                                        class="material-icons md-30">more_vert</i></button>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <button class="dropdown-item connect" name="1" data-room-number="{{ room.room_number }}" data-call-type="voice" data-member-id={{ current_room_member.id }}><i
+                                            class="material-icons">phone_in_talk</i>Voice Call</button>
+                                    <button class="dropdown-item connect" name="1" data-room-number="{{ room.room_number }}" data-call-type="video" data-member-id={{ current_room_member.id }}><i
+                                            class="material-icons">videocam</i>Video Call</button>
+                                    <hr>
+                                    <button class="dropdown-item"><i class="material-icons">clear</i>Clear
+                                        History</button>
+                                    <button class="dropdown-item"><i class="material-icons">block</i>Block
+                                        Contact</button>
+                                    <button class="dropdown-item"><i class="material-icons">delete</i>Delete
+                                        Contact</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content" id="content">
+
+                <div class="container content_message">
+                    <div class="col-md-12" id="content_message">
+
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="col-md-12">
+                    <div class="bottom">
+                        <form class="position-relative w-100 reply-box-form">
+                            <textarea class="form-control chat_input" placeholder="Start typing for reply..."
+                                        rows="1" name="message"></textarea>
+                            <button class="btn emoticons"><i
+                                    class="material-icons">insert_emoticon</i></button>
+                            <button type="button" class="btn send" id='room{{ room.room_number }}'><i
+                                    class="material-icons">send</i></button>
+                        </form>
+                        <form enctype="multipart/form-data" class="file_upload_form">
+                            <label>
+                                <input type="file" name="file" id="file_input_{{ room.room_number }}">
+                                <span class="btn attach d-sm-block d-none"><i
+                                        class="material-icons">attach_file</i></span>
+                            </label>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Chat -->
+    </div>
+    <!-- End of Babble -->
+</div>
+
+<script>
+    function scrollToBottomChat(el) { el.scrollTop = el.scrollHeight; }
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "POST",
+            headers:{'X-CSRFToken':"{{ csrf_token }}"},
+            url: "{% url 'chat:RoomMessages' %}",
+            data: {'room_number': "{{ room.room_number }}"},
+            success: function (response) {
+                $('#content_message').html(response)
+                scrollToBottomChat(document.getElementById('content'));
+                $('[data-toggle="tooltip"]').tooltip();
+            }
+        });
+    });
+</script>

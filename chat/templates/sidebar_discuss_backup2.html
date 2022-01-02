@@ -1,0 +1,89 @@
+{% load static %}
+<!-- Start of Discussions -->
+
+<!-- search bar -->
+<div class="search">
+    <form class="form-inline position-relative">
+        <input type="search" class="form-control" id="conversations"
+               placeholder="Search for conversations...">
+        <button type="button" class="btn btn-link loop"><i
+               class="material-icons">search</i></button>
+    </form>
+    <button class="btn create" data-toggle="modal" data-target="#startnewchat"><i
+           class="material-icons">create</i></button>
+</div>
+
+
+<!-- discuss list -->
+<div class="list-group sort">
+    <button class="btn filterDiscussionsBtn active show" data-toggle="list"
+            data-filter="all">All</button>
+    <button class="btn filterDiscussionsBtn" data-toggle="list"
+            data-filter="read">Read</button>
+    <button class="btn filterDiscussionsBtn" data-toggle="list"
+            data-filter="unread">Unread</button>
+</div>
+<div class="discussions">
+    <h1>Discussions</h1>
+    {% if discuss_list|length %}
+    <div class="list-group" id="chats" role="tablist">
+
+        {% for discuss in discuss_list %}
+        <a href="#list-chat" class="filterDiscussions all unread single active"
+           id="list-chat-list" data-toggle="list" data-sender="{{ discuss.sender.id }}" data-receiver="{{ discuss.receiver.id }}" role="tab">
+            <img class="avatar-md" src="
+            {% if request.user == discuss.sender %}
+                {{ discuss.receiver.image.url }}
+            {% else %}
+                {{ discuss.sender.image.url }}
+            {% endif %}
+                "
+                 data-toggle="tooltip" data-placement="top" title="
+                {% if request.user == discuss.sender %}
+                    {{ discuss.receiver.first_name|title }}
+                {% else %}
+                        {{ discuss.sender.first_name|title }}
+                {% endif %}"
+                 alt="avatar">
+            <div class="status">
+                <i class="material-icons online">fiber_manual_record</i>
+            </div>
+
+            {% if discuss.unread_messages_count %}
+            <div class="new bg-yellow">
+                <span>+{{ discuss.unread_messages_count }}</span>
+            </div>
+            {% endif %}
+            <div class="data">
+                <h5>
+                    {% if request.user == discuss.sender %}
+                        {{ discuss.receiver.get_full_name|title }}
+                    {% else %}
+                        {{ discuss.sender.get_full_name|title }}
+                    {% endif %}
+            </h5>
+                <span>{{ discuss.created_at}}</span>
+                <p>{{ discuss.message }}</p>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+<!-- End of Discussions -->
+
+<script>
+    $(document).on('click', '#list-chat-list', function(){
+        let sender_id =$(this).data('sender')
+        let receiver_id =$(this).data('receiver')
+        console.log(sender_id, receiver_id);
+        $.ajax({
+            type: "GET",
+            url: "{% url 'chat:PersonalDiscussion' %}",
+            data: {"sender_id":sender_id, "receiver_id":receiver_id},
+            success: (response) => {
+                $(this).parents().find('.chatarea').html(response)
+            }
+        });
+    });
+</script>
