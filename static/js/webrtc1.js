@@ -83,9 +83,9 @@ function start(room_number, call_type, member_id, user_full_name) {
             // set up websocket and message all existing clients
             .then(() => {
                 // console.log(window.location.hostname);
-
+                let websocket_type = location.protocol === 'https:' ? 'wss://' : 'ws://'
                 serverConnection = new WebSocket(
-                    "ws://" +
+                        websocket_type +
                         window.location.host +
                         "/ws/call/" +
                         room_number +

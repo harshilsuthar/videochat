@@ -33,8 +33,9 @@
     // make protected channel for common communication
     $(document).ready(function () {
         console.log('creating protected socket');
+        let websocket_type = location.protocol === 'https:' ? 'wss://' : 'ws://'
         let protectedSocket = new WebSocket(
-            'ws://'
+            websocket_type
             + window.location.host
             + '/ws/protected/{{ request.user.id }}/'
         )

@@ -115,8 +115,9 @@
         // prevent multiple chat socket while reloading this page
             if(!("{{ room.room_number }}" in room_number_list)){
                 // creating seperate websocket for each room
+                let websocket_type = location.protocol === 'https:' ? 'wss://' : 'ws://'
                 let chatSocket{{forloop.counter}} = new WebSocket(
-                    'ws://'
+                    websocket_type
                     + window.location.host
                     + '/ws/chat/{{ room.room_number }}/'
                 )

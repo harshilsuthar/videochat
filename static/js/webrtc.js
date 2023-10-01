@@ -31,8 +31,8 @@ const iceServers = {
         { urls: "stun:stun4.l.google.com:19302" },
     ],
 };
-
-const socket = new WebSocket("ws://"+ window.location.host +"/ws/call/1/");
+let websocket_type = location.protocol === 'https:' ? 'wss://' : 'ws://'
+const socket = new WebSocket(websocket_type+ window.location.host +"/ws/call/1/");
 
 socket.onmessage = async function (e) {
     var data = JSON.parse(e.data);
