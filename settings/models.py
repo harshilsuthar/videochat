@@ -1,5 +1,6 @@
 from django.db import models
-from django.utils import timezone
+
+# from django.utils import timezone
 
 
 class CreateTimeStamp(models.Model):
@@ -7,6 +8,7 @@ class CreateTimeStamp(models.Model):
         abstract = True
 
     created_at = models.DateTimeField(editable=False)
+
 
 class UpdateTimeStamp(models.Model):
     class Meta:

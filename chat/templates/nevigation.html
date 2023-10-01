@@ -4,7 +4,7 @@
     <div class="container">
         <div class="inside">
             <div class="nav nav-tab menu">
-                <button class="btn profile_pic"><img class="avatar-xl" src="{{ request.user.image.url }}"
+                <button class="btn profile_pic"><img class="avatar-xl" src="{% if request.user.image %} {{ request.user.image.url }} {% else %} {% endif %}"
                          alt="avatar"></button>
                 <a href="#members" data-toggle="tab" id="contact_div"><i class="material-icons">account_circle</i></a>
                 <a href="#discussions" data-toggle="tab" class="active" id="discussion_nav"><i

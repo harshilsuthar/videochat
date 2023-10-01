@@ -45,77 +45,77 @@
 
 
 .profile-widget {
-	background-color: #fff;
-	border-radius: 4px;
-	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
-	margin-bottom: 30px;
-	padding: 20px;
-	text-align: center;
-	position: relative;
-	overflow: hidden;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
 }
 .profile-widget .user-name > a {
-	color: #333;
+    color: #333;
 }
 
 .custom-modal .profile-widget {
-	margin-bottom: 0;
+    margin-bottom: 0;
 }
 
 .incoming-btns {
-	margin-top: 20px;
+    margin-top: 20px;
 }
 
 .profile-img {
-	cursor: pointer;
-	height: 80px;
-	margin: 0 auto;
-	position: relative;
-	width: 80px;
+    cursor: pointer;
+    height: 80px;
+    margin: 0 auto;
+    position: relative;
+    width: 80px;
 }
 
 .profile-img .avatar {
-	font-size: 24px;
-	height: 80px;
-	line-height: 80px;
-	margin: 0;
-	width: 80px;
+    font-size: 24px;
+    height: 80px;
+    line-height: 80px;
+    margin: 0;
+    width: 80px;
 }
 
 .profile-widget .btn-success {
-	background-color: #55ce63;
-	border: 1px solid #55ce63
+    background-color: #55ce63;
+    border: 1px solid #55ce63
 }
 
 .profile-widget .btn-danger {
-	background: #f62d51;
-	border: 1px solid #f62d51
+    background: #f62d51;
+    border: 1px solid #f62d51
 }
 
 .avatar {
-	background-color: #aaa;
-	border-radius: 50%;
-	color: #fff;
-	display: inline-block;
-	font-weight: 500;
-	height: 38px;
-	line-height: 38px;
-	margin: 0 10px 0 0;
-	overflow: hidden;
-	text-align: center;
-	text-decoration: none;
-	text-transform: uppercase;
-	vertical-align: middle;
-	width: 38px;
-	position: relative;
-	white-space: nowrap;
+    background-color: #aaa;
+    border-radius: 50%;
+    color: #fff;
+    display: inline-block;
+    font-weight: 500;
+    height: 38px;
+    line-height: 38px;
+    margin: 0 10px 0 0;
+    overflow: hidden;
+    text-align: center;
+    text-decoration: none;
+    text-transform: uppercase;
+    vertical-align: middle;
+    width: 38px;
+    position: relative;
+    white-space: nowrap;
 }
 .avatar:hover {
-	color: #fff;
+    color: #fff;
 }
 .avatar > img {
-	width: 100%;
-	display: block;
+    width: 100%;
+    display: block;
 }
 
 video

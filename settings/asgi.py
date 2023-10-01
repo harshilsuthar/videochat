@@ -16,14 +16,16 @@ from django.core.asgi import get_asgi_application
 import chat.routing
 import videocall.routing
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "settings.settings")
 
-application = ProtocolTypeRouter({
-    "http" :  get_asgi_application(),
-    "websocket": AuthMiddlewareStack(
-        URLRouter(
-            chat.routing.websocket_urlpatterns +
-            videocall.routing.websocket_urlpatterns
-        )
-    ),
-})
+application = ProtocolTypeRouter(
+    {
+        "http": get_asgi_application(),
+        "websocket": AuthMiddlewareStack(
+            URLRouter(
+                chat.routing.websocket_urlpatterns
+                + videocall.routing.websocket_urlpatterns
+            )
+        ),
+    }
+)

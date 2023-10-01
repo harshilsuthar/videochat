@@ -1,7 +1,7 @@
-from django.db.models.signals import post_save, pre_delete
+from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 
-from .models.roomchat import Message, Room, RoomMember
+from .models.roomchat import Room, RoomMember
 
 
 # delete all members before delting group

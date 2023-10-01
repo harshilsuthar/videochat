@@ -3,7 +3,7 @@
 <div class="tab-pane fade" id="settings">
     <div class="settings">
         <div class="profile">
-            <img class="avatar-xl" src="{{ request.user.image.url }}" alt="avatar">
+            <img class="avatar-xl" src="{% if request.user.image %} {{ request.user.image.url }} {% else %} {% endif %}" alt="avatar">
             <h1><a href="#">{{ request.user.get_full_name|title }}</a></h1>
         </div>
         <div class="categories" id="accordionSettings">
@@ -24,7 +24,7 @@
                     <div class="content">
                         <div class="upload">
                             <div class="data">
-                                <img class="avatar-xl" src="{{ request.user.image.url }}"
+                                <img class="avatar-xl" src="{% if request.user.image %} {{ request.user.image.url }} {% else %} {% endif %}"
                                      alt="image">
                                 <label>
                                     <input type="file" id="id_profile_pic_input" accept="image/*" name="profile_pic_input">

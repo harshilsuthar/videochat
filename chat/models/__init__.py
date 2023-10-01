@@ -1,1 +1,1 @@
-from . import personalchat, roomchat
+from . import personalchat, roomchat  # noqa

@@ -9,65 +9,65 @@
 
 {% block content %}
 <main>
-	<div class="layout">
+    <div class="layout">
 
-		{% include 'nevigation.html' %}
+        {% include 'nevigation.html' %}
 
-		{% include 'sidebar.html' %}
+        {% include 'sidebar.html' %}
 
-		<div class="main" id="main">
-			<div class="chatarea"></div>
-			<div class="callarea">
-				{% include 'videocall.html' %}
-			</div>
-		</div>
-	</div>
+        <div class="main" id="main">
+            <div class="chatarea"></div>
+            <div class="callarea">
+                {% include 'videocall.html' %}
+            </div>
+        </div>
+    </div>
 </main>
 {% endblock content %}
 
 
 {% block endscript %}
 <script>
-	let room_number_list = {}
-	var audio = new Audio("{% static 'sound/notification.mp3' %}");
-	// make protected channel for common communication
-	$(document).ready(function () {
-		console.log('creating protected socket');
-		let protectedSocket = new WebSocket(
+    let room_number_list = {}
+    var audio = new Audio("{% static 'sound/notification.mp3' %}");
+    // make protected channel for common communication
+    $(document).ready(function () {
+        console.log('creating protected socket');
+        let protectedSocket = new WebSocket(
             'ws://'
             + window.location.host
             + '/ws/protected/{{ request.user.id }}/'
         )
 
 
-		protectedSocket.onmessage = function(e){
-			var data = JSON.parse(e.data);
+        protectedSocket.onmessage = function(e){
+            var data = JSON.parse(e.data);
             var type = data['type']
 
-			if(type == 'update_notification'){
-				console.log('update_notification');
-			}
+            if(type == 'update_notification'){
+                console.log('update_notification');
+            }
 
-			else if(type == 'update_contact'){
-				console.log('update_contact');
-			}
+            else if(type == 'update_contact'){
+                console.log('update_contact');
+            }
 
-			else if(type == 'update_discussion'){
-				console.log('update_discussion');
-				$('#discussions').load("{% url 'chat:RoomList' %}", " #discussions>*")
-			}
-		}
+            else if(type == 'update_discussion'){
+                console.log('update_discussion');
+                $('#discussions').load("{% url 'chat:RoomList' %}", " #discussions>*")
+            }
+        }
 
-		protectedSocket.onopen = function(r){
-			protectedSocket.send(JSON.stringify({
-				'type':'connection_success'
-			}))
-		}
+        protectedSocket.onopen = function(r){
+            protectedSocket.send(JSON.stringify({
+                'type':'connection_success'
+            }))
+        }
 
-		protectedSocket.onclose = function(e){
+        protectedSocket.onclose = function(e){
             console.log("chat socket close unexpectedly",e)
         }
-	});
+    });
 
 </script>
 
